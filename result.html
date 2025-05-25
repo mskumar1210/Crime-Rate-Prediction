@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crime Rate Predictor</title>
+    <link rel="icon" href="static/images/favicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rubik', sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+        }
+
+        header {
+            background-color: #1e2a38;
+            padding: 20px 0;
+            text-align: center;
+            color: #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .title {
+            font-size: 2.5rem;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: #86d3f4;
+        }
+
+        .prediction {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        }
+
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+
+        .label, .sel, .result {
+            padding: 12px 10px;
+            font-size: 1rem;
+        }
+
+        select {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+
+        .r2 td.result {
+            font-weight: 500;
+        }
+
+        .chart-container {
+            margin: 30px auto;
+            width: 90%;
+            max-width: 700px;
+        }
+
+        .button2 {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            background-color: #1e90ff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #166ed8;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 class="title">Crime Rate Predictor</h1>
+        <h2 class="tagline">Unlock safety: Reduce crime rate together</h2>
+    </header>
+
+    <section class="prediction">
+        <table>
+            <tr class="r1">
+                <td class="label">Selected City Name :</td>
+                <td class="sel"><select><option selected>{{city_name}}</option></select></td>
+            </tr>
+            <tr class="r1">
+                <td class="label">Selected Crime Type :</td>
+                <td class="sel"><select><option selected>{{crime_type}}</option></select></td>
+            </tr>
+            <tr class="r1">
+                <td class="label">Selected Year :</td>
+                <td class="sel"><select><option selected>{{year}}</option></select></td>
+            </tr>
+        </table>
+
+        <table>
+            <tr class="r2">
+                <td class="result">Prediction :</td>
+                <td class="result">{{crime_status}}</td>
+            </tr>
+            <tr class="r2">
+                <td class="result">Estimated Crime Rate :</td>
+                <td class="result">{{crime_rate}}</td>
+            </tr>
+            <tr class="r2">
+                <td class="result">Estimated Number of Cases :</td>
+                <td class="result">{{cases}}</td>
+            </tr>
+            <tr class="r2">
+                <td class="result">Population (in Lakhs) :</td>
+                <td class="result">{{population}}</td>
+            </tr>
+        </table>
+
+        <div class="chart-container">
+            <canvas id="crimeChart"></canvas>
+        </div>
+
+        <div class="button2">
+            <a href="/">
+                <button class="btn">Let's Check Again</button>
+            </a>
+        </div>
+    </section>
+
+    <script>
+        const ctx = document.getElementById('crimeChart').getContext('2d');
+        const crimeChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Crime Rate', 'Number of Cases', 'Population (Lakhs)'],
+                datasets: [{
+                    label: 'Crime Stats',
+                    data: [{{crime_rate}}, {{cases}}, {{population}}],
+                    backgroundColor: ['#ff6384', '#36a2eb', '#4bc0c0'],
+                    borderRadius: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.parsed.y;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

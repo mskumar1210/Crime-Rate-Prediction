@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crime Rate Prediction</title>
+    <link rel="icon" href="static/images/favicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            color: #f4f4f4;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .title {
+            font-size: 3rem;
+            color: #00e6e6;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #ccc;
+        }
+
+        .section1 {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .table1 {
+            width: 100%;
+        }
+
+        .label {
+            padding: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .sel select {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background-color: #f0f0f0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .button {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background-color: #00e6e6;
+            color: #000;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #00b3b3;
+        }
+
+        section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #00e6e6;
+        }
+
+        #introduction {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 20px;
+            max-width: 1000px;
+            margin: auto;
+            font-size: 1rem;
+            line-height: 1.6;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.2rem;
+            }
+
+            .section1,
+            #introduction {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1 class="title">Crime Rate Predictor</h1>
+        <h2 class="tagline">Unlock safety: Reduce crime rate together</h2>
+    </header>
+
+    <section class="section1">
+        <form action="/predict" method="POST">
+            <table class="table1">
+                <tr>
+                    <td class="label">
+                        <label>Select City Name</label>
+                    </td>
+                    <td class="sel">
+                        <select name="city">
+                            <option value="0">Ahmedabad</option>
+                            <option value="1">Bengaluru</option>
+                            <option value="2">Chennai</option>
+                            <option value="3">Coimbatore</option>
+                            <option value="4">Delhi</option>
+                            <option value="5">Ghaziabad</option>
+                            <option value="6">Hyderabad</option>
+                            <option value="7">Indore</option>
+                            <option value="8">Jaipur</option>
+                            <option value="9">Kanpur</option>
+                            <option value="10">Kochi</option>
+                            <option value="11">Kolkata</option>
+                            <option value="12">Kozhikode</option>
+                            <option value="13">Lucknow</option>
+                            <option value="14">Mumbai</option>
+                            <option value="15">Nagpur</option>
+                            <option value="16">Patna</option>
+                            <option value="17">Pune</option>
+                            <option value="18">Surat</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label">
+                        <label>Select Crime Type</label>
+                    </td>
+                    <td class="sel">
+                        <select name="crime">
+                            <option value="9">Murder</option>
+                            <option value="8">Kidnapping</option>
+                            <option value="7">Economic Offences</option>
+                            <option value="6">Cyber Crimes</option>
+                            <option value="5">Crime against women</option>
+                            <option value="4">Crime against children</option>
+                            <option value="3">Crime against Senior Citizen</option>
+                            <option value="2">Crime against ST</option>
+                            <option value="1">Crime against SC</option>
+                            <option value="0">Crime Committed by Juveniles</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label">
+                        <label>Select Year</label>
+                    </td>
+                    <td class="sel">
+                        <select name="year" id="year-dropdown"></select>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="button">
+                <input type="submit" class="btn" value="Predict">
+            </div>
+        </form>
+    </section>
+
+    <section>
+        <h2 id="about">About the Application</h2>
+        <p id="introduction">
+            Crime rate prediction has become an important tool for law enforcement agencies to help them better understand patterns of crime and anticipate where crime is likely to occur. By predicting future crime trends, law enforcement agencies can better allocate resources to areas that are likely to experience increases in criminal activity. This could lead to a decrease in crime overall, as well as an increase in public safety.
+            <br><br>
+            The dataset is prepared manually based on publications from the Indian National Crime Records Bureau (NCRB). This application predicts crime rates in 19 major cities from 2014 to 2021 across 10 crime categories, using a Random Forest Regression model with 93.20% accuracy.
+            <br><br>
+            It helps in forecasting crime trends and empowers better decision-making in resource deployment and safety planning.
+        </p>
+    </section>
+
+    <script>
+        const yearDropdown = document.getElementById("year-dropdown");
+        for (let year = 2014; year <= 2030; year++) {
+            const option = document.createElement("option");
+            option.value = year;
+            option.text = year;
+            yearDropdown.appendChild(option);
+        }
+    </script>
+</body>
+
+</html>
