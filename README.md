@@ -1,4 +1,5 @@
 **Crime Rate Prediction System**
+
 Overview
 This project presents a data-driven, AI-powered solution to enhance public safety and assist law enforcement agencies by predicting crime rates and classifying crime types using machine learning and deep learning techniques. The system integrates LSTM-based crime rate forecasting with CNN-based crime hotspot image analysis, helping police departments, city planners, and policymakers make informed decisions on resource allocation, patrol scheduling, and preventive measures.
 
@@ -63,48 +64,62 @@ Classifies uploaded surveillance image as High Risk, Medium Risk, or Low Risk
 Returns prediction confidence + recommended action (immediate response, monitor, routine patrol)
 Can process both static images and video frames
 
-Integration
+# Integration
 
-Frontend: Farmer-friendly GUI using Tkinter for uploading surveillance images or connecting to live camera feeds
-Backend: Served via FastAPI to handle model inference, data preprocessing, and real-time predictions
-Dashboard: Interactive visualization showing crime trends, predicted hotspots, and resource allocation recommendations
+- Frontend: Farmer-friendly GUI using Tkinter for uploading surveillance images or connecting to live camera feeds
+- Backend: Served via FastAPI to handle model inference, data preprocessing, and real-time predictions
+- Dashboard: Interactive visualization showing crime trends, predicted hotspots, and resource allocation recommendations
 
-Model Architecture
+# Model Architecture
 LSTM Model for Crime Forecasting
 
 Input Layer (60 timesteps)
     ↓
+    
 LSTM Layer 1 (128 units, return_sequences=True)
     ↓
+    
 Dropout (0.2)
     ↓
+    
 LSTM Layer 2 (64 units)
     ↓
+    
 Dropout (0.2)
     ↓
+    
 Dense Layer (32 units, ReLU)
     ↓
+    
 Output Layer (30 units) → 30-day forecast
 
-CNN Model for Crime Image Classification
 
+# CNN Model for Crime Image Classification
 Input Layer (224x224x3)
     ↓
+    
 Conv2D (32 filters, 3x3) + ReLU + MaxPooling
     ↓
+    
 Conv2D (64 filters, 3x3) + ReLU + MaxPooling
     ↓
+    
 Conv2D (128 filters, 3x3) + ReLU + MaxPooling
     ↓
+    
 Flatten
     ↓
+    
 Dense (256 units, ReLU) + Dropout (0.5)
     ↓
+    
 Dense (128 units, ReLU) + Dropout (0.3)
     ↓
+    
 Output Layer (3 units, Softmax) → High/Medium/Low Risk
 
-Installation & Setup
+
+# Installation & Setup
 
 Clone the repository
 # Git clone 
