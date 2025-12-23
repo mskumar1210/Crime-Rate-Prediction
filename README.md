@@ -1,6 +1,7 @@
 **Crime Rate Prediction System**
 
 Overview
+
 This project presents a data-driven, AI-powered solution to enhance public safety and assist law enforcement agencies by predicting crime rates and classifying crime types using machine learning and deep learning techniques. The system integrates LSTM-based crime rate forecasting with CNN-based crime hotspot image analysis, helping police departments, city planners, and policymakers make informed decisions on resource allocation, patrol scheduling, and preventive measures.
 
 Problem Statement
@@ -152,6 +153,7 @@ uvicorn app:app --reload --port 8000
 python gui_app.py
 
 # Making Predictions
+
 # Example: Forecast next 30 days
 from models.lstm_forecaster import CrimeForecaster
 
@@ -167,18 +169,26 @@ classifier.load_model('models/cnn_crime_classifier.h5')
 risk_level, confidence = classifier.predict('image.jpg')
 print(f"Risk Level: {risk_level}, Confidence: {confidence:.2%}")
 
-Results & Performance
+# Results & Performance
 
 # LSTM Forecasting Model
+
+
 RMSE: 2.34 crimes/day
+
 MAE: 1.87 crimes/day
 MAPE: 8.3%
+
 Successfully captures seasonal trends and event-based spikes
 
 # CNN Classification Model
+
 Accuracy: 92.5%
+
 Precision: 91.8%
+
 Recall: 90.2%
+
 F1-Score: 91.0%
 
 
